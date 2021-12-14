@@ -12,31 +12,22 @@ import { IEffect } from '../store';
 // https://www.youtube.com/watch?v=NlqwHsFFxV8
 export interface IFoodLogRegistry {
   id: number;
-  petImage: string,
-  date: string,
+  petOption: PetOptions,
+  date: number,
 }
 
 export interface IGlobalStoreInterface{
   petOption: PetOptions;
   isFirstOpen: boolean;
+  petName: string;
   foodLogRegistry: Array<IFoodLogRegistry>;
 }
 
-const lastFoodLogMock = [
-  {
-    id: 1,
-    petImage: 'dog',
-    date: (new Date()).toDateString(),
-  },
-  {
-    id: 2,
-    petImage: 'cat',
-    date: (new Date()).toDateString(),
-  },
-];
+const lastFoodLogMock: Array<IFoodLogRegistry> = [];
 
 const initialState: IGlobalStoreInterface = {
   petOption: PetOptions.none,
+  petName: '',
   isFirstOpen: true,
   foodLogRegistry: lastFoodLogMock,
 };
@@ -55,10 +46,20 @@ const Global = createSlice({
       ...state,
       petOption: payload,
     }),
+    setPetName: (state: IGlobalStoreInterface,
+      { payload } : PayloadAction<string>) => ({
+      ...state,
+      petName: payload,
+    }),
     addFoodLogRegistry: (state: IGlobalStoreInterface,
       { payload }: PayloadAction<IFoodLogRegistry>) => ({
       ...state,
-      foodLogRegistry: [...state.foodLogRegistry, payload],
+      foodLogRegistry: [payload, ...state.foodLogRegistry],
+    }),
+    removeFoodLogRegistry: (state: IGlobalStoreInterface,
+      { payload }: PayloadAction<IFoodLogRegistry>) => ({
+      ...state,
+      foodLogRegistry: state.foodLogRegistry.filter((item) => item.id !== payload.id),
     }),
   },
 });
@@ -76,6 +77,18 @@ export const setPetOption = (payload: PetOptions) : IEffect => async (dispatch) 
 export const addFoodLogRegistry = (payload: IFoodLogRegistry) : IEffect => async (dispatch) => {
   console.log('Global.actions.addFoodLogRegistry', payload);
   dispatch(Global.actions.addFoodLogRegistry(payload));
+};
+
+export const removeFoodLogRegistry = (payload: IFoodLogRegistry) : IEffect => async (dispatch) => {
+  console.log('Global.actions.removeFoodLogRegistry', payload);
+  dispatch(Global.actions.removeFoodLogRegistry(payload));
+};
+
+
+
+export const setPetName = (payload: string) : IEffect => async (dispatch) => {
+  console.log('Global.actions.setPetName', payload);
+  dispatch(Global.actions.setPetName(payload));
 };
 
 export default Global;

@@ -1,6 +1,4 @@
-import React from 'react';
 import { StyleSheet } from 'react-native';
-import colors from '../../styles/colors';
 
 export default StyleSheet.create({
   containerPadding: {
@@ -47,24 +45,39 @@ export default StyleSheet.create({
   lastFoodContainer: {
     width: '100%',
     flexDirection: 'row',
-    paddingVertical: 15,
+    flexWrap: 'nowrap',
+    paddingVertical: 10,
+  },
+  historyItem: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    paddingVertical: 10,
+    justifyContent: 'space-between',
   },
   lastFoodPetImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
+    fontSize: 30,
   },
   lastFoodInfo: {
     paddingHorizontal: 10,
   },
   lastFoodInfoText: {
     fontSize: 18,
-    lineHeight: 50,
+    lineHeight: 30,
     fontWeight: 'bold',
   },
   separator: {
     height: 1,
     backgroundColor: '#838383',
   },
-
+  foodHistoryContainer: {
+    maxHeight: '75%',
+  },
+  removeIcon: {
+    alignSelf: 'flex-end',
+  },
+  footer: {
+    height: 30,
+    width: '100%',
+  },
 });

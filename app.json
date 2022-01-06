@@ -33,6 +33,9 @@
       "favicon": "./assets/favicon.png"
     },
     "description": "",
-    "githubUrl": "https://github.com/fsmalaquias/pet-food-log"
+    "githubUrl": "https://github.com/fsmalaquias/pet-food-log",
+    "extra": {
+      "flipperHack": "React Native packager is running"
+    }
   }
 }

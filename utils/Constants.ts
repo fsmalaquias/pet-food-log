@@ -16,5 +16,10 @@ export enum RouteNames {
 
 export function dateFormat(timestamp: number) {
   const dateObject = new Date(timestamp);
-  return `${dateObject.getDate()}/${dateObject.getMonth()} às ${dateObject.getHours()}:${dateObject.getMinutes()}:${dateObject.getSeconds()}`;
+  const day = ('0' + dateObject.getDate()).slice(-2);
+  const month = ('0' + (dateObject.getMonth() + 1)).slice(-2);
+  const hour = ('0' + dateObject.getHours()).slice(-2);
+  const min = ('0' + dateObject.getMinutes()).slice(-2);
+  const sec = ('0' + dateObject.getSeconds()).slice(-2);
+  return `${day}/${month} às ${hour}:${min}:${sec}`;
 }

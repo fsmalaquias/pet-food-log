@@ -4,16 +4,18 @@ import {
   applyMiddleware,
   createStore,
   Action,
-  combineReducers, createSerializableStateInvariantMiddleware, isPlain,
+  combineReducers,
 } from '@reduxjs/toolkit';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { useDispatch } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
+import reactotron from '../ReactotronConfig.js';
 import Global from './slices/global.slice';
 
-const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
+// eslint-disable-next-line max-len
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware), reactotron.createEnhancer());
 
 const reducers = combineReducers({
   global: Global.reducer,
@@ -27,11 +29,6 @@ const persistConfig = {
 export const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = createStore(persistedReducer, composedEnhancer);
-
-// const store = configureStore({
-//   reducer: persistedReducer,
-//   middleware: [serializableMiddleware],
-// });
 
 export const persistor = persistStore(store);
 
